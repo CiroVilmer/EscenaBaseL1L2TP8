@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogues:
   - Hola Alumno, que haces a esta hora aca?
-  - 
-  - 
-  - 
-  - 
+  - Bueno no me importa la razon.
+  - 'Ahora me vas a ayudar a arreglar las computadoras rotas '
+  - Las tenes que encontrar entre las CPUs del lab
+  - Hay 3 rotas, buscalas y arreglalas. Gracias!

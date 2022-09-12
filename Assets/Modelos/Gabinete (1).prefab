@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6160454421798452201}
   - component: {fileID: 5908715789670976087}
   - component: {fileID: 6766740531318188622}
+  - component: {fileID: 5911077839028653156}
   m_Layer: 0
   m_Name: Gabinete (1)
   m_TagString: gabinete
@@ -87,8 +88,24 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 465168703949507469}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
+  m_IsTrigger: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1.4676447, y: 0.3519053, z: 0.36076272}
   m_Center: {x: -0.21649885, y: -0.13698992, z: 0.14647049}
+--- !u!114 &5911077839028653156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 465168703949507469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e141b5d9949976140aa0ee72e4d666e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dificultad: 0
+  vidaRestante: 0
+  cpuCanvas: {fileID: 0}
+  textCounter: {fileID: 0}
