@@ -7,46 +7,38 @@ using TMPro;
 public class cpuScript : MonoBehaviour
 {
     //variables
-    public int dificultad;
+    public int dificultad = 0;
     public int vidaRestante;
-    bool playerOnRange = false;
+    public bool playerOnRange = false;
+    private bool once = true;
+    private bool doOnce = true;
 
     //Canvas
     public GameObject cpuCanvas;
-    public TextMeshProUGUI textCounter;
+    public GameObject healthCanvas;
+    private NPCbehaviour NPCcontroller;
+    private healthBar healthBarController;
+    public TextMeshProUGUI textCounter, cpuArreglada;
 
     // Start is called before the first frame update
     void Start()
     {
-        cpuCanvas.SetActive(false);
 
-        if(dificultad == 1)
-        {
-            vidaRestante = 10;
-        }else if(dificultad == 2)
-        {
-            vidaRestante = 30;
-        }else if(dificultad == 3)
-        {
-            vidaRestante = 50;
-        }
-        
+        healthBarController = healthCanvas.GetComponent<healthBar>();
+
+
+        NPCcontroller = GameObject.Find("NPC").GetComponent<NPCbehaviour>();
     }
 
     // Update is called once per frame
     void Update()
     {
 
-
-
         if (playerOnRange)
         {
             cpuCanvas.SetActive(true);
             textCounter.text = vidaRestante.ToString();
-        }
-        else
-        {
-            cpuCanvas.SetActive(false);
+            Debug.Log("Canvas ON");
         }
 
     }
@@ -56,11 +48,22 @@ public class cpuScript : MonoBehaviour
 
         if(vidaRestante > 0){
             vidaRestante--;
+            healthBarController.healthLeft--;
             textCounter.text = vidaRestante.ToString();
         }
-        else if(vidaRestante == 0)
+        else
         {
-            textCounter.text = "COMPUTADORA ARREGLADA";
+
+            if (doOnce)
+            {
+                NPCcontroller.computerFixed();
+                doOnce = false;
+            }
+
+            string text = "COMPUTADORA ARREGLADA";
+          
+            textCounter.text = text;
+
         }
     }
 
@@ -71,6 +74,28 @@ public class cpuScript : MonoBehaviour
         {
             playerOnRange = true;
 
+            if (once)
+            {
+                if (dificultad == 1)
+                {
+                    vidaRestante = 10;
+                }
+                else if (dificultad == 2)
+                {
+                    vidaRestante = 30;
+                }
+                else if (dificultad == 3)
+                {
+                    vidaRestante = 50;
+                }
+                once = false;
+            }
+
+
+            healthBarController.updateHealth(vidaRestante);
+
+
+            Debug.Log("Player in");
         }
 
     }
@@ -81,5 +106,6 @@ public class cpuScript : MonoBehaviour
         {
             playerOnRange = false;
         }
+        cpuCanvas.SetActive(false);
     }
 }

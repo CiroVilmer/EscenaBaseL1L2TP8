@@ -10,17 +10,19 @@ public class NPCbehaviour : MonoBehaviour
     [SerializeField] GameObject[] CPUs;
 
     private bool playerOnRange = false;
+    private bool missionFinished = false;
 
     //Dialogues
 
     public NPC NPCdata;
     [SerializeField] string[] dialogues;
     private int dialoguePosition = -1;
+    public int CPUfixed = 0;
 
     //canvas
     [Header("NPC-UI")]
     public GameObject canvas;
-    public TextMeshProUGUI dialogueTxt;
+    public TextMeshProUGUI dialogueTxt, nextTxt;
 
 
 
@@ -45,44 +47,51 @@ public class NPCbehaviour : MonoBehaviour
             canvas.SetActive(false);
         }
 
-
-
-        if (Input.GetKeyDown(KeyCode.R) && playerOnRange)
+        if (!missionFinished)
         {
-            dialoguePosition++;
+            if (Input.GetKeyDown(KeyCode.R) && playerOnRange)
+            {
+                dialoguePosition++;
 
-            if (dialoguePosition < dialogues.Length)
-            {
-                dialogueTxt.text = dialogues[dialoguePosition];
-            }
-            else
-            {
-                bool once = true;
-                if (once)
+                if (dialoguePosition < dialogues.Length)
                 {
-                    for (int i = 0; i < 2; i++)
-                    {
-                        int seleccionarCPU = Random.Range(0, CPUs.Length);
-                        int dificultadCPU = 1;
-
-                        if (CPUs[seleccionarCPU].GetComponent<BoxCollider>().enabled == false)
-                        {
-                            BoxCollider cpuCollider = CPUs[seleccionarCPU].GetComponent<BoxCollider>();
-                            cpuCollider.enabled = true;
-                            cpuCollider.isTrigger = true;
-                            CPUs[seleccionarCPU].GetComponent<cpuScript>().dificultad = dificultadCPU;
-                            dificultadCPU++;
-                        }
-                        else
-                        {
-                            i--;
-                        }
-                    }
-                    once = false;
+                    dialogueTxt.text = dialogues[dialoguePosition];
                 }
+                else if (dialoguePosition < dialogues.Length + 1)
+                {
 
-                dialogueTxt.text = "Cuando Termines avisame!";
+                        for (int i = 1; i < 4; i++)
+                        {
+                            int seleccionarCPU = Random.Range(0, CPUs.Length);
+
+                            if (CPUs[seleccionarCPU].GetComponent<BoxCollider>().enabled == false)
+                            {
+                                BoxCollider cpuCollider = CPUs[seleccionarCPU].GetComponent<BoxCollider>();
+                                cpuCollider.enabled = true;
+                                cpuCollider.isTrigger = true;
+                                CPUs[seleccionarCPU].GetComponent<cpuScript>().dificultad = i;
+
+                            }
+                            else
+                            {
+                                i--;
+                            }
+
+                    }
+
+                    dialogueTxt.text = "Cuando Termines avisame!";
+                }
+                else
+                {
+                    dialogueTxt.text = "Cuando Termines avisame!";
+                }
             }
+        }
+
+        if (missionFinished)
+        {
+            dialogueTxt.text = "Gracias por ayudarme alumno, te voy a subir la nota!!!";
+            nextTxt.text = "";
         }
 
     }
@@ -125,6 +134,16 @@ public class NPCbehaviour : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             playerOnRange = false;
+        }
+    }
+
+    public void computerFixed()
+    {
+        CPUfixed++;
+
+        if(CPUfixed <= 3)
+        {
+            missionFinished = true;
         }
     }
 }
