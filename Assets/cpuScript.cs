@@ -12,10 +12,12 @@ public class cpuScript : MonoBehaviour
     public bool playerOnRange = false;
     private bool once = true;
     private bool doOnce = true;
+    public GameObject zap;
 
     //Canvas
     public GameObject cpuCanvas;
     public GameObject healthCanvas;
+    public GameObject avisos;
     private NPCbehaviour NPCcontroller;
     private healthBar healthBarController;
     public TextMeshProUGUI textCounter, cpuArreglada;
@@ -28,6 +30,8 @@ public class cpuScript : MonoBehaviour
 
 
         NPCcontroller = GameObject.Find("NPC").GetComponent<NPCbehaviour>();
+
+
     }
 
     // Update is called once per frame
@@ -50,6 +54,10 @@ public class cpuScript : MonoBehaviour
             vidaRestante--;
             healthBarController.healthLeft--;
             textCounter.text = vidaRestante.ToString();
+
+
+            GameObject clon = Instantiate(zap, this.transform);
+            Destroy(clon, 0.5f);
         }
         else
         {
@@ -63,6 +71,8 @@ public class cpuScript : MonoBehaviour
             string text = "COMPUTADORA ARREGLADA";
           
             textCounter.text = text;
+
+            avisos.SetActive(true);
 
         }
     }
@@ -107,5 +117,6 @@ public class cpuScript : MonoBehaviour
             playerOnRange = false;
         }
         cpuCanvas.SetActive(false);
+        avisos.SetActive(false);
     }
 }

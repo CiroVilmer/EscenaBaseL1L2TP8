@@ -15,6 +15,7 @@ public class NPCbehaviour : MonoBehaviour
     //Dialogues
 
     public NPC NPCdata;
+    public GameObject door;
     [SerializeField] string[] dialogues;
     private int dialoguePosition = -1;
     public int CPUfixed = 0;
@@ -92,6 +93,7 @@ public class NPCbehaviour : MonoBehaviour
         {
             dialogueTxt.text = "Gracias por ayudarme alumno, te voy a subir la nota!!!";
             nextTxt.text = "";
+            door.SetActive(false);
         }
 
     }
@@ -146,4 +148,6 @@ public class NPCbehaviour : MonoBehaviour
             missionFinished = true;
         }
     }
+
+
 }
